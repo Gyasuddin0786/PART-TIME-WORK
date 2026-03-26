@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import api from "../api";
 import Dashboard from "./Dashboard";
-
+import Navbar from "./Navbar";
 export default function Upload() {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -42,6 +42,9 @@ export default function Upload() {
   };
 
   return (
+    <>
+        <Navbar/>
+
     <div className="p-6 space-y-5 max-w-screen-xl mx-auto">
       <div>
         <h2 className="text-xl font-bold text-stone-800">Upload & Analyse</h2>
@@ -119,5 +122,6 @@ export default function Upload() {
 
       {data && <Dashboard data={data} fileName={file?.name} />}
     </div>
+    </>
   );
 }

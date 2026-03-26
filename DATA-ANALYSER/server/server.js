@@ -4,14 +4,14 @@ const mongoose = require("mongoose");
 
 const authRoute = require("./routes/authRoute");
 const uploadRoute = require("./routes/uploadRoute");
-
+const userRoutes = require("./routes/userRoutes");
 const app = express();
 app.use(cors());
 app.use(express.json());
 
 app.use(authRoute);
 app.use(uploadRoute);
-
+app.use("/api/user", userRoutes);
 const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/lead-analyser";
 
 mongoose.connect(MONGO_URI)

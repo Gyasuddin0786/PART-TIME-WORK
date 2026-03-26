@@ -6,7 +6,8 @@ import Register from "./pages/Register";
 import HistoryPage from "./pages/HistoryPage";
 import Upload from "./components/Upload";
 import Sidebar from "./components/Sidebar";
-
+import Profile from "./components/Profile";
+import ChangePassword from "./components/ChangePassword";
 function PrivateLayout({ children }) {
   const { user } = useAuth();
   const [collapsed, setCollapsed] = useState(false);
@@ -14,7 +15,9 @@ function PrivateLayout({ children }) {
   return (
     <div className="flex min-h-screen bg-stone-100">
       <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
-      <main className={`flex-1 transition-all duration-300 overflow-y-auto ${collapsed ? "ml-16" : "ml-60"}`}>
+      <main
+        className={`flex-1 transition-all duration-300 overflow-y-auto ${collapsed ? "ml-16" : "ml-60"}`}
+      >
         {children}
       </main>
     </div>
@@ -32,11 +35,59 @@ export default function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/login"     element={<GuestRoute><Login /></GuestRoute>} />
-          <Route path="/register"  element={<GuestRoute><Register /></GuestRoute>} />
-          <Route path="/dashboard" element={<PrivateLayout><Upload /></PrivateLayout>} />
-          <Route path="/history"   element={<PrivateLayout><HistoryPage /></PrivateLayout>} />
-          <Route path="*"          element={<Navigate to="/dashboard" replace />} />
+          <Route
+            path="/login"
+            element={
+              <GuestRoute>
+                <Login />
+              </GuestRoute>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <GuestRoute>
+                <Register />
+              </GuestRoute>
+            }
+          />
+
+          <Route
+            path="/dashboard"
+            element={
+              <PrivateLayout>
+                <Upload />
+              </PrivateLayout>
+            }
+          />
+          <Route
+            path="/history"
+            element={
+              <PrivateLayout>
+                <HistoryPage />
+              </PrivateLayout>
+            }
+          />
+
+          {/* ✅ NEW ROUTES */}
+          <Route
+            path="/profile"
+            element={
+              <PrivateLayout>
+                <Profile />
+              </PrivateLayout>
+            }
+          />
+          <Route
+            path="/change-password"
+            element={
+              <PrivateLayout>
+                <ChangePassword />
+              </PrivateLayout>
+            }
+          />
+
+          <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
